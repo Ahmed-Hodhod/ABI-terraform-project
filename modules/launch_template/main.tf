@@ -2,11 +2,6 @@ variable "vpc_id" {
 
 }
 
-data "template_file" "user_data" {
-  #  template = file("${path.module}/user_data.sh")
-  template = replace(file("${path.module}/userdata.tmpl"), "\r\n", "\n")
-
-}
 resource "aws_launch_template" "hodhod_template" {
   name                   = "hodhod-terraform-wordpress-template"
   image_id               = var.ami_id
@@ -15,7 +10,7 @@ resource "aws_launch_template" "hodhod_template" {
   vpc_security_group_ids = [aws_security_group.public_facing_sg.id]
   depends_on             = [aws_security_group.public_facing_sg]
 
-  user_data = data.template_file.user_data.rendered
+  #user_data = filebase64("${path.module}/userdata.sh")
 
   tag_specifications {
     resource_type = "instance"
@@ -58,6 +53,18 @@ resource "aws_security_group_rule" "allow_https" {
   type              = "ingress"
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+resource "aws_security_group_rule" "allow_all_outbound" {
+  from_port = 0
+  to_port   = 65535
+
+  protocol          = "tcp"
+  security_group_id = aws_security_group.public_facing_sg.id
+  type              = "egress"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+
 
 output "launch_template_latest_version" {
   value = aws_launch_template.hodhod_template.latest_version

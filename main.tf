@@ -21,12 +21,12 @@ module "launch_template" {
 
 }
 
-# module "database" {
-#   source             = "./modules/database"
-#   vpc_id             = module.vpc.vpc_id
-#   database_subnet_id = module.vpc.private_subnet_id
-#   vpc_cidr_block     = module.vpc.vpc_cidr_block
-# }
+module "database" {
+  source             = "./modules/database"
+  vpc_id             = module.vpc.vpc_id
+  database_subnet_id = module.vpc.private_subnet_id
+  vpc_cidr_block     = module.vpc.vpc_cidr_block
+}
 
 module "autoscaling" {
   source             = "./modules/autoscaling"
