@@ -1,0 +1,8 @@
+.terraform/
+.terraform/*
+.vscode/*
+.vscode/
+
+
+# Ignore all .tfstate files
+*.tfstate
