@@ -29,9 +29,12 @@ module "database" {
 }
 
 module "autoscaling" {
-  source             = "./modules/autoscaling"
-  launch_template_id = module.launch_template.launch_template_id
-  subnet_ids         = [module.vpc.public_subnet_id]
-  # depends_on                     = [module.vpc, module.database]
+  source                         = "./modules/autoscaling"
+  launch_template_id             = module.launch_template.launch_template_id
+  subnet_ids                     = [module.vpc.public_subnet_id, module.vpc.dummy_subnet_id]
+  depends_on                     = [module.vpc, module.database]
   launch_template_latest_version = module.launch_template.launch_template_latest_version
+  vpc_id                         = module.vpc.vpc_id
+  allow_all_sg                   = module.launch_template.allow_all_sg
+
 }

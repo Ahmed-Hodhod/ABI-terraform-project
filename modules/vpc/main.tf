@@ -28,6 +28,18 @@ resource "aws_subnet" "public" {
   }
 }
 
+resource "aws_subnet" "dummy" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.64.0/20"
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = true
+
+
+  tags = {
+    Name = "hodhod-terraform-public-subnet"
+  }
+}
+
 resource "aws_subnet" "private" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.private_subnet_cidr
@@ -81,19 +93,19 @@ resource "aws_security_group" "default" {
   description = "Allow traffic from within the vpc. "
   vpc_id      = aws_vpc.main.id
 
-  depends_on = [ aws_vpc.main ]
+  depends_on = [aws_vpc.main]
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    self = true 
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
   }
-   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    self = true 
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
   }
-  
+
 }

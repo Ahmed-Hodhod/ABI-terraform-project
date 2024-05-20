@@ -1,7 +1,6 @@
 variable "vpc_id" {
 
 }
-
 resource "aws_launch_template" "hodhod_template" {
   name                   = "hodhod-terraform-wordpress-template"
   image_id               = var.ami_id
@@ -63,7 +62,6 @@ resource "aws_security_group_rule" "allow_all_outbound" {
   type              = "egress"
   cidr_blocks       = ["0.0.0.0/0"]
 }
-
 
 
 output "launch_template_latest_version" {
