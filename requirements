@@ -1,0 +1,7 @@
+A - create a vpc with 2 subnets (private and public)
+B - create a launch template that contains your image of wordpress
+c - create an autoscaling group that has 2 machines of type t3.small and a simple scaling policy that adds
+more machines if cpu reaches 50%
+d - database instance with mysql 8 installed on it
+f - use s3 as backend for your terraform state
+g - try to separate the functions of your terraform into abstract modules
