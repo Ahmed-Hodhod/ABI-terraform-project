@@ -2,6 +2,11 @@
 .terraform/*
 .vscode/*
 .vscode/
+test/*
+test
+aws/*
+aws 
+
 
 
 # Ignore all .tfstate files

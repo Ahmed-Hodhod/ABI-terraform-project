@@ -7,8 +7,8 @@ output "public_subnet_id" {
 }
 
 
-output "dummy_subnet_id" {
-  value = aws_subnet.dummy.id
+output "public_subnet_id2" {
+  value = aws_subnet.public2.id
 }
 output "private_subnet_id" {
   value = aws_subnet.private.id

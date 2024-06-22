@@ -1,21 +1,14 @@
-variable "database_subnet_id" {
+variable "database_subnet_id" {}
 
-}
+variable "vpc_id" {}
 
-variable "vpc_id" {
+variable "vpc_cidr_block" {}
 
-}
-
-variable "vpc_cidr_block" {
-
-}
 # create ec2 instance with mysql installed  
 resource "aws_instance" "database" {
   ami           = var.database_ami
   instance_type = var.database_type
-  #  security_groups = [aws_security_group.database_sg.id]
   depends_on = [aws_security_group.database_sg]
-  #subnet_id       = var.database_subnet_id
   key_name = var.key_name
 
   network_interface {

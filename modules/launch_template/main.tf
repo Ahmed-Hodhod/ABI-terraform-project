@@ -1,6 +1,5 @@
-variable "vpc_id" {
+variable "vpc_id" {}
 
-}
 resource "aws_launch_template" "hodhod_template" {
   name                   = "hodhod-terraform-wordpress-template"
   image_id               = var.ami_id
@@ -10,6 +9,7 @@ resource "aws_launch_template" "hodhod_template" {
   depends_on             = [aws_security_group.public_facing_sg]
 
   #user_data = filebase64("${path.module}/userdata.sh")
+  
 
   tag_specifications {
     resource_type = "instance"
@@ -18,6 +18,7 @@ resource "aws_launch_template" "hodhod_template" {
     }
   }
 }
+
 
 
 resource "aws_security_group" "public_facing_sg" {

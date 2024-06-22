@@ -1,6 +1,7 @@
 provider "aws" {
   region = "us-east-1"
 }
+
 terraform {
 
   backend "s3" {
@@ -15,6 +16,7 @@ terraform {
 module "vpc" {
   source = "./modules/vpc"
 }
+
 module "launch_template" {
   source = "./modules/launch_template"
   vpc_id = module.vpc.vpc_id
@@ -31,7 +33,7 @@ module "database" {
 module "autoscaling" {
   source                         = "./modules/autoscaling"
   launch_template_id             = module.launch_template.launch_template_id
-  subnet_ids                     = [module.vpc.public_subnet_id, module.vpc.dummy_subnet_id]
+  subnet_ids                     = [module.vpc.public_subnet_id, module.vpc.public_subnet_id2]
   depends_on                     = [module.vpc, module.database]
   launch_template_latest_version = module.launch_template.launch_template_latest_version
   vpc_id                         = module.vpc.vpc_id
