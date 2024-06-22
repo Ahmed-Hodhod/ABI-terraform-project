@@ -20,7 +20,7 @@ more machines if cpu reaches 50%
 - assign the variable values according to your needs especially the ami and other per-region parameters
 
 
-## Ryn the project 
+## Run the project 
 ```
 terraform validate 
 terraform plan 
